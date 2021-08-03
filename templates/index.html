@@ -1,0 +1,7 @@
+{% if ansible_memtotal_mb < 2000 %}
+wow
+{% endif %}
+
+total_mem: {{ ansible_memtotal_mb }}
+
+mycustomvar: "{{ mycustomvar | default('welcome') }} 
