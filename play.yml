@@ -1,0 +1,33 @@
+---
+- name: Demo
+  hosts: all
+  become: true
+  gather_facts: true
+  tasks:
+
+    - name: Cria user
+      user:
+        name: pedro
+        shell: /bin/bash
+        append: yes
+
+    - name: Instala Apache
+      package:
+        name: httpd
+        state: present
+
+    - name: Deploy app
+      template:
+        src: templates/index.html
+        dest: /var/www/html/index.html
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Inicia Apache
+      systemd:
+        state: restarted
+        name: httpd
+
+
+
